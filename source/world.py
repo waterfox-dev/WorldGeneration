@@ -1,6 +1,6 @@
 from ipythonblocks import BlockGrid, colors
 
-from cell import Cell
+from source.cell import Cell
 
 import random
 
