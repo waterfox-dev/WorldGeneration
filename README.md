@@ -1,4 +1,4 @@
-# World Generation 
+# World Generation - V1
 
 **World generation** is a little project in python who the objectif is to generate a world 
 with a simple preset. 
@@ -34,3 +34,4 @@ from source.world import World
 w = World(preset, 5)
 print(w.generate())
 ```
+**Version** : Generator v.1
