@@ -13,19 +13,19 @@ class World :
         
         self._l_world = list()
         self.size = size
-        self.preset =preset
+        self.preset = preset
         
         for x in range(size): 
             self._l_world.append([])
             for y in range(size):
                 self._l_world[x].append(Cell((x,y), 0))
         
-    def _analyse_neighbor(self, pos: tuple[int]) -> None :
+    def _analyse_neighbor(self, pos: tuple[int], biome_range: int) -> None :
         
         self._l_world[pos[0]][pos[1]].influences = list()
         
-        for x in range(pos[0]-2, pos[0]+3):
-            for y in range(pos[1]-2, pos[1]+3) :
+        for x in range(pos[0]-biome_range, pos[0]+biome_range+1):
+            for y in range(pos[1]-biome_range, pos[1]+biome_range+1) :
                 if ((x,y) == pos) or ((x or y) <= -1) or (y >= (len(self._l_world[0]) - 1)) or ((x >= (len(self._l_world[0]) - 1))):
                     pass 
                 else :
@@ -45,11 +45,11 @@ class World :
             
         self._l_world[pos[0]][pos[1]].biome = int(round(sum(l_prob)/len(l_prob), 0))
     
-    def generate(self) -> list:
+    def generate(self, biome_range: int) -> list:
         
         for x in range(len(self._l_world)) :
             for y in range(len(self._l_world)) :
-                self._analyse_neighbor((x,y))
+                self._analyse_neighbor((x,y), biome_range)
                 self._set_biome((x,y))
  
         l = list()
