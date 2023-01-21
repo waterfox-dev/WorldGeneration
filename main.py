@@ -1,5 +1,7 @@
 from source.world import World
 from source.utils import display_as_img
+from source.loader import load, save
+
 
 preset = { 
     0 : {  #The preset for biome '0' :
@@ -12,5 +14,12 @@ preset = {
     }
 }
 
-w = World(preset, 100).generate()
-display_as_img(w)
+gen = World(preset, 30).generate(5)
+
+for i in range(30) : 
+    print("Step :", i+1)
+    w = World(preset, 30)
+    w.import_world(gen)
+    gen = w.generate(30)
+
+display_as_img(gen)

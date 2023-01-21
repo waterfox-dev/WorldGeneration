@@ -61,3 +61,20 @@ class World :
 
         return l
     
+    def import_world(self, world: list[list[int]]) -> None:
+        
+        for x in range(len(world)) :
+            for y in range(len(world[0])): 
+                self._l_world[x][y] = Cell((x,y), world[x][y])
+    
+    def __repr__(self) -> str:
+        
+        total = str()
+        
+        for x in range(len(self._l_world)) : 
+            line = str()            
+            for y in range(len(self._l_world[0])) :
+                line += str(self._l_world[x][y].biome)
+            
+            total += line + '\n'
+        return total
