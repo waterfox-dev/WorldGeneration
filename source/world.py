@@ -18,7 +18,7 @@ class World :
         for x in range(size): 
             self._l_world.append([])
             for y in range(size):
-                self._l_world[x].append(Cell((x,y), 0))
+                self._l_world[x].append(Cell((x,y), 0)) #Todo : Not 0 but None
         
     def _analyse_neighbor(self, pos: tuple[int], biome_range: int) -> None :
         
