@@ -32,10 +32,10 @@ def display_as_img(world: list[list[int]]) -> None:
     for x in range(len(world)):
         for y in range(len(world[x])):
             if world[x][y] == 1: 
-                grid[x, y].set_colors(0,0,0)
+                grid[x, y].set_colors(111,215,48)
                 
             if world[x][y] == 2: 
-                grid[x, y].set_colors(0,150,64)  
+                grid[x, y].set_colors(250,128,114)  
     
     grid.save_image('assets/generation.png')
     im = img.imread('assets/generation.png')
