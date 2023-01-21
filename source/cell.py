@@ -6,4 +6,4 @@ class Cell :
         self.influences = []
     
     def __repr__(self) -> str:
-        return f'[{self.pos[0]},{self.pos[1]}]'
+        return f'[{self.pos[0]},{self.pos[1]}] -> {self.biome}'
