@@ -1,2 +1,8 @@
 .venv/ 
+<<<<<<< HEAD
 test.py
+=======
+test.py
+*.pyc
+*/__pycache__
+>>>>>>> origin/interface
