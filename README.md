@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # World Generation - V1
 
 **World generation** is a little project in python who the objectif is to generate a world 
