@@ -1,0 +1,22 @@
+{
+    "field" :
+    {
+        "name" : "Field",
+        "code" : "FI",
+        "color" : "#008000",
+        "influences" :
+        {
+            "forest" : 30
+        }
+    },
+    "forest" :
+    {
+        "name" : "Forest",
+        "code" : "FO",
+        "color" : "#8B4513", 
+        "influences" : 
+        {
+            "field" : 20
+        }
+    }
+}

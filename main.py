@@ -1,25 +1,8 @@
-from source.generator import Generator 
-from source.utils import display_as_img
+from source.tools.load_biomes import load_biomes
+from source.classes.world import World
 
-import logging
 
-preset = { 
-    0 : {  
-        0 : 33,
-        1 : 33,
-        2 : 33,
-    }, 
-    1 : {
-        0 : 0, 
-        1 : 10,
-        2 : 90, 
-    },
-    2 : {
-        0 : 33, 
-        1 : 33, 
-        2 : 33 
-    }
-}
-
-render = Generator(preset, 100, 5, True).generate(1)
-display_as_img(render)
+biomes = load_biomes()
+w = World('test', 20, biomes)
+w.set_biomes_center(2)
+print(w)
