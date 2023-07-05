@@ -1,22 +1,16 @@
 {
-    "field" :
+    "FI" :
     {
         "name" : "Field",
         "code" : "FI",
-        "color" : "#008000",
-        "influences" :
-        {
-            "forest" : 30
-        }
+        "color" : "#2fc45c", 
+        "weight" : 70
     },
-    "forest" :
+    "FO" :
     {
         "name" : "Forest",
         "code" : "FO",
-        "color" : "#8B4513", 
-        "influences" : 
-        {
-            "field" : 20
-        }
+        "color" : "#8B4513",
+        "weight" : 70
     }
 }

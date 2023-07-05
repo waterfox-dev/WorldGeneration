@@ -10,15 +10,17 @@ def _hexa_to_rgb(hexa: str) -> tuple[int] :
     return tuple(int(hexa[i:i+2], 16) for i in (0, 2, 4))
 
 def show(world: World) -> None :
+    """Save world as png image into `assets/output.png`.
+
+    Args:
+        world (World): the world to generate
+    """
+    grid = BlockGrid(world.size, world.size, fill=(100,100,100), lines_on=True)
     
-    grid = BlockGrid(world.size, world.size, fill=(255,255,255), lines_on=False)
-    print(grid.height)
-    
-    for c in range(len(world.grid)-1) :
-        for l in range(len(world.grid)-1) :
+    for c in range(len(world.grid)) :
+        for l in range(len(world.grid)) :
             if world.grid[c][l] != None :
-                print(c, l)
                 grid[c,l].rgb = (_hexa_to_rgb(world.grid[c][l].biome['color']))
     
-    grid.save_image('test.png')
+    grid.save_image('assets/output.png')
     
