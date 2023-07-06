@@ -89,9 +89,8 @@ class World :
         
         for i in range(len(self.grid)) :
             for j in range(len(self.grid[i])) :
-                if((i, j) not in self.biomes_center) :
-                    max_key = [key for key, value in self._get_influences((i,j)).items() if value == min(self._get_influences((i,j)).values())]
-                    for k in range(len(self.biomes)) :
-                        if self.biomes[k]['code'] == max_key[0] :
-                            self.grid[i][j] = Cell(self.biomes[k])
-            
+                max_key = [key for key, value in self._get_influences((i,j)).items() if value == min(self._get_influences((i,j)).values())]
+                for k in range(len(self.biomes)) :
+                    if self.biomes[k]['code'] == max_key[0] :
+                        self.grid[i][j] = Cell(self.biomes[k])
+        

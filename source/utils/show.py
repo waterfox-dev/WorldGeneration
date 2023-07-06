@@ -15,7 +15,7 @@ def show(world: World) -> None :
     Args:
         world (World): the world to generate
     """
-    grid = BlockGrid(world.size, world.size, fill=(100,100,100), lines_on=True)
+    grid = BlockGrid(world.size, world.size, fill=(100,100,100), lines_on=False)
     
     for c in range(len(world.grid)) :
         for l in range(len(world.grid)) :
