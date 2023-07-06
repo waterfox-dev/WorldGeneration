@@ -3,14 +3,14 @@
     {
         "name" : "Field",
         "code" : "FI",
-        "color" : "#2fc45c", 
+        "color" : "#BC8F8F", 
         "weight" : 70
     },
     "FO" :
     {
         "name" : "Forest",
         "code" : "FO",
-        "color" : "#8B4513",
+        "color" : "#2BA6A6",
         "weight" : 70
     }
 }

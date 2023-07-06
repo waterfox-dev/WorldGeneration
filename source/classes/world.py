@@ -54,7 +54,7 @@ class World :
             if cell.biome['code'] not in list(influences.keys()) :
                 influences[cell.biome['code']] = []
             
-            influences[cell.biome['code']].append(distance) 
+            influences[cell.biome['code']].append(distance/self._weight_to_force(cell.biome)) 
         
         
         for key, value in influences.items() : 
