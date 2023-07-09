@@ -17,7 +17,8 @@ class World :
         self.name = name 
         self.size = size
         self.biomes = biome_list
-        self.grid:list[list[Cell]] = list()        
+        self.grid:list[list[Cell]] = list()   
+        self.pos = [(i,j) for i in range(size) for j in range(size)]     
         
         for i in range(size) :
             self.grid.append(list())
@@ -81,16 +82,19 @@ class World :
             biome = random.choice(self.biomes)
             
             self.grid[pos_x][pos_y] = Cell(biome)
+            self.pos.remove((pos_x, pos_y))
             self.biomes_center.append((pos_x, pos_y))
         
         return self.biomes_center
     
     def fill_world(self) -> None :
-        
-        for i in range(len(self.grid)) :
-            for j in range(len(self.grid[i])) :
-                max_key = [key for key, value in self._get_influences((i,j)).items() if value == min(self._get_influences((i,j)).values())]
-                for k in range(len(self.biomes)) :
-                    if self.biomes[k]['code'] == max_key[0] :
-                        self.grid[i][j] = Cell(self.biomes[k])
-        
+        """Fill the current world with generated Cell
+        """
+        while self.pos != [] :
+            pos = random.choice(self.pos)
+            self.pos.remove(pos)
+            max_key = [key for key, value in self._get_influences(pos).items() if value == min(self._get_influences(pos).values())]
+            for k in range(len(self.biomes)) :
+                if self.biomes[k]['code'] == max_key[0] :
+                    self.grid[pos[0]][pos[1]] = Cell(self.biomes[k])
+            
