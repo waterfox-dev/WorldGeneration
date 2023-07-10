@@ -6,7 +6,7 @@ from source.hintings import Biome
 
 class World :
     
-    def __init__(self, name: str, size: int, biome_list: list[Biome]) -> None :
+    def __init__(self, name: str, size: int, biome_list: list[Biome], log:bool = False) -> None :
         """Create an instance of a world. A world is composed of mutliple Cell. 
 
         Args:
@@ -17,6 +17,8 @@ class World :
         self.name = name 
         self.size = size
         self.biomes = biome_list
+        self.log = log 
+    
         self.grid:list[list[Cell]] = list()   
         self.pos = [(i,j) for i in range(size) for j in range(size)]     
         
@@ -44,7 +46,10 @@ class World :
         return round(biome['weight'] * self.size / 100, 0)
 
     def _get_influences(self, pos: tuple[int]) -> dict[Biome:int] :
-        
+    
+        if self.log :
+            print(f"Influences of {pos}")
+            
         influences = {}
         
         for center_pos in self.biomes_center :
@@ -56,7 +61,9 @@ class World :
                 influences[cell.biome['code']] = []
             
             influences[cell.biome['code']].append(distance/self._weight_to_force(cell.biome)) 
-        
+            
+            if self.log :
+                print(f"[{cell.biome['name']} : {distance/self._weight_to_force(cell.biome)}]")
         
         for key, value in influences.items() : 
             influences[key] = sum(value)/len(value)
@@ -73,6 +80,9 @@ class World :
             list[tuple[int]]: list of biome center as a tuple (x,y)
         """
         
+        if self.log :
+            print("=== Generating Biomes Center ===")
+        
         self.biomes_center = []
         
         for i in range(nb_biome):
@@ -84,17 +94,28 @@ class World :
             self.grid[pos_x][pos_y] = Cell(biome)
             self.pos.remove((pos_x, pos_y))
             self.biomes_center.append((pos_x, pos_y))
+            
+            if self.log :            
+                print(f"({pos_x},{pos_y}) - {biome['name']}")
         
         return self.biomes_center
     
     def fill_world(self) -> None :
         """Fill the current world with generated Cell
         """
+        
+        if self.log :
+            print("=== Generating Cell ===")
+        
         while self.pos != [] :
             pos = random.choice(self.pos)
             self.pos.remove(pos)
             max_key = [key for key, value in self._get_influences(pos).items() if value == min(self._get_influences(pos).values())]
             for k in range(len(self.biomes)) :
                 if self.biomes[k]['code'] == max_key[0] :
+                    
                     self.grid[pos[0]][pos[1]] = Cell(self.biomes[k])
-            
+
+                    if self.log :
+                        print(f"-> {self.biomes[k]['name']}")
+                
