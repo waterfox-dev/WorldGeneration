@@ -1,5 +1,6 @@
 import logging
 import random
+import json
 
 from source.classes.cell import Cell
 from source.hintings import Biome
@@ -41,7 +42,6 @@ class World :
     
         return content
     
-    
     def _weight_to_force(self, biome: Biome) -> int :
         return round(biome['weight'] * self.size / 100, 0)
 
@@ -69,7 +69,37 @@ class World :
             influences[key] = sum(value)/len(value)
         
         return influences   
+    
+    def _code_to_biome(self, code : str) -> Biome :
+        
+        for biome in self.biomes :
+            if biome['code'] == code :
+                return biome
             
+    def _grid_to_json(self) -> list[list[str]] :
+        
+        out:list[list[str]] = list()
+        
+        for i in range(self.size) : 
+            out.append(list())
+            for j in range(self.size) :
+                out[i].append(self.grid[i][j].biome['code'])
+        
+        return out
+    
+    def _json_to_grid(self, data : list[list[str]]) -> list[list[Cell]] :
+        
+        out:list[list[Cell]] = list()
+        
+        for i in range(self.size) : 
+            out.append(list())
+            for j in range(self.size) :
+                out[i].append(Cell(self._code_to_biome(data[i][j])))
+                        
+        return out
+        
+        
+                
     def set_biomes_center(self, nb_biome: int) -> list[tuple[int]] :
         """Set biomes center on the grid.
 
@@ -118,4 +148,23 @@ class World :
 
                     if self.log :
                         print(f"-> {self.biomes[k]['name']}")
-                
+    
+    def write(self, filepath:str) -> None :
+        """Write a `.json` with the world settings 
+
+        Args:
+            filepath (str): the filepath of the save
+        """
+        
+        with open(filepath, 'w', encoding='utf8') as f_write :
+            datas = {}
+            datas['biomes'] = self.biomes
+            datas['world'] = self._grid_to_json()
+            json.dump(datas, f_write)
+
+    def load(self, filepath: str) :
+        
+        with open(filepath, 'r', encoding='utf8') as f_read :
+            datas = json.load(f_read)
+            self.biomes = datas['biomes']
+            self.grid = self._json_to_grid(datas['world'])
