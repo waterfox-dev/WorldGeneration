@@ -11,9 +11,10 @@ class World :
         """Create an instance of a world. A world is composed of mutliple Cell. 
 
         Args:
-            name (str): The name of the world
+            name (str): The name of the world.
             size (int): The size of the world. A world is a square of `size` dimensions
             biome_list (dict): The list of biomes possible in this world
+            log (bool, optional): The log state. Defaults to False.
         """
         self.name = name 
         self.size = size
@@ -122,6 +123,7 @@ class World :
             biome = random.choice(self.biomes)
             
             self.grid[pos_x][pos_y] = Cell(biome)
+            print((pos_x, pos_y))
             self.pos.remove((pos_x, pos_y))
             self.biomes_center.append((pos_x, pos_y))
             
